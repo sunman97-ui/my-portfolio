@@ -2,22 +2,51 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-scroll'
 import { FiMenu, FiX } from 'react-icons/fi'
 
+const navLinks = [
+  { label: 'About', to: 'about' },
+  { label: 'Skills', to: 'skills' },
+  { label: 'Projects', to: 'projects' },
+  { label: 'Contact', to: 'contact' },
+]
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
 
+  // Navbar frost effect on scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const navLinks = [
-    { label: 'About', to: 'about' },
-    { label: 'Skills', to: 'skills' },
-    { label: 'Projects', to: 'projects' },
-    { label: 'Contact', to: 'contact' },
-  ]
+  // Active section tracking via IntersectionObserver
+  useEffect(() => {
+    const observers = []
+
+    navLinks.forEach(({ to }) => {
+      const el = document.getElementById(to)
+      if (!el) return
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveSection(to)
+          }
+        },
+        {
+          rootMargin: '-40% 0px -55% 0px',
+          threshold: 0,
+        }
+      )
+
+      observer.observe(el)
+      observers.push(observer)
+    })
+
+    return () => observers.forEach(obs => obs.disconnect())
+  }, [])
 
   return (
     <nav style={{
@@ -52,35 +81,57 @@ export default function Navbar() {
         </span>
 
         {/* Desktop Links */}
-        <ul style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '36px',
-          listStyle: 'none',
-        }}
+        <ul
           className="desktop-nav"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '36px',
+            listStyle: 'none',
+          }}
         >
-          {navLinks.map(link => (
-            <li key={link.to}>
-              <Link
-                to={link.to}
-                smooth={true}
-                duration={500}
-                offset={-68}
-                style={{
-                  fontSize: '0.95rem',
-                  fontWeight: '500',
-                  color: 'var(--text-secondary)',
-                  cursor: 'pointer',
-                  transition: 'var(--transition)',
-                }}
-                onMouseEnter={e => e.target.style.color = 'var(--accent)'}
-                onMouseLeave={e => e.target.style.color = 'var(--text-secondary)'}
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
+          {navLinks.map(link => {
+            const isActive = activeSection === link.to
+            return (
+              <li key={link.to}>
+                <Link
+                  to={link.to}
+                  smooth={true}
+                  duration={500}
+                  offset={-68}
+                  style={{
+                    fontSize: '0.95rem',
+                    fontWeight: isActive ? '600' : '500',
+                    color: isActive ? 'var(--accent)' : 'var(--text-secondary)',
+                    cursor: 'pointer',
+                    transition: 'var(--transition)',
+                    position: 'relative',
+                    paddingBottom: '4px',
+                  }}
+                  onMouseEnter={e => {
+                    if (!isActive) e.target.style.color = 'var(--accent)'
+                  }}
+                  onMouseLeave={e => {
+                    if (!isActive) e.target.style.color = 'var(--text-secondary)'
+                  }}
+                >
+                  {link.label}
+                  {/* Active underline indicator */}
+                  {isActive && (
+                    <span style={{
+                      position: 'absolute',
+                      bottom: '-2px',
+                      left: '0',
+                      right: '0',
+                      height: '2px',
+                      backgroundColor: 'var(--accent)',
+                      borderRadius: '999px',
+                    }} />
+                  )}
+                </Link>
+              </li>
+            )
+          })}
           <li>
             <Link
               to="contact"
@@ -88,7 +139,10 @@ export default function Navbar() {
               duration={500}
               offset={-68}
             >
-              <button className="btn btn-primary" style={{ padding: '9px 22px', fontSize: '0.9rem' }}>
+              <button
+                className="btn btn-primary"
+                style={{ padding: '9px 22px', fontSize: '0.9rem' }}
+              >
                 Hire Me
               </button>
             </Link>
@@ -115,36 +169,54 @@ export default function Navbar() {
 
       {/* Mobile Dropdown */}
       {menuOpen && (
-        <div style={{
-          backgroundColor: 'rgba(255,255,255,0.98)',
-          borderTop: '1px solid var(--border)',
-          padding: '16px 24px 24px',
-        }}
+        <div
           className="mobile-nav"
+          style={{
+            backgroundColor: 'rgba(255,255,255,0.98)',
+            borderTop: '1px solid var(--border)',
+            padding: '16px 24px 24px',
+          }}
         >
-          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            {navLinks.map(link => (
-              <li key={link.to}>
-                <Link
-                  to={link.to}
-                  smooth={true}
-                  duration={500}
-                  offset={-68}
-                  onClick={() => setMenuOpen(false)}
-                  style={{
-                    fontSize: '1rem',
-                    fontWeight: '500',
-                    color: 'var(--text-secondary)',
-                    cursor: 'pointer',
-                  }}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+          <ul style={{
+            listStyle: 'none',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+          }}>
+            {navLinks.map(link => {
+              const isActive = activeSection === link.to
+              return (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    smooth={true}
+                    duration={500}
+                    offset={-68}
+                    onClick={() => setMenuOpen(false)}
+                    style={{
+                      fontSize: '1rem',
+                      fontWeight: isActive ? '600' : '500',
+                      color: isActive ? 'var(--accent)' : 'var(--text-secondary)',
+                      cursor: 'pointer',
+                      transition: 'var(--transition)',
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              )
+            })}
             <li>
-              <Link to="contact" smooth={true} duration={500} onClick={() => setMenuOpen(false)}>
-                <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+              <Link
+                to="contact"
+                smooth={true}
+                duration={500}
+                onClick={() => setMenuOpen(false)}
+              >
+                <button
+                  className="btn btn-primary"
+                  style={{ width: '100%', justifyContent: 'center' }}
+                >
                   Hire Me
                 </button>
               </Link>
