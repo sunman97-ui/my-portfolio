@@ -1,0 +1,16 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="100" fill="#EFF6FF"/>
+
+  <!-- Head -->
+  <circle cx="100" cy="72" r="32" fill="#2563EB" opacity="0.15"/>
+  <circle cx="100" cy="72" r="24" fill="#2563EB" opacity="0.25"/>
+  <circle cx="100" cy="72" r="16" fill="#2563EB"/>
+
+  <!-- Shoulders / body -->
+  <ellipse cx="100" cy="155" rx="52" ry="36" fill="#2563EB" opacity="0.12"/>
+  <ellipse cx="100" cy="150" rx="40" ry="28" fill="#2563EB" opacity="0.18"/>
+  <ellipse cx="100" cy="145" rx="28" ry="20" fill="#2563EB" opacity="0.25"/>
+
+</svg>
