@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion'
-import { FiGithub, FiLinkedin, FiArrowUp } from 'react-icons/fi'
+import { footer, footerIcons } from '../data/footer'
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -12,7 +11,7 @@ export default function Footer() {
       color: '#ffffff',
       padding: '48px 24px 32px',
     }}>
-      <div style={{
+      <div className="container" style={{
         maxWidth: '1100px',
         margin: '0 auto',
         display: 'flex',
@@ -30,117 +29,50 @@ export default function Footer() {
         }}>
 
           {/* Brand */}
-          <div>
-            <p style={{
-              fontSize: '1.1rem',
-              fontWeight: '700',
-              color: '#ffffff',
-              marginBottom: '6px',
-            }}>
-              John <span style={{ color: 'var(--accent)' }}>Spencer</span>
+          <div className="footer-brand">
+            <p style={{ fontSize: '1.1rem', fontWeight: '700', color: '#ffffff', marginBottom: '6px' }}>
+              {footer.brand.first} <span style={{ color: 'var(--accent)' }}>{footer.brand.last}</span>
             </p>
-            <p style={{
-              fontSize: '0.85rem',
-              color: '#94A3B8',
-              maxWidth: '280px',
-              lineHeight: '1.6',
-            }}>
-              CNC Programmer and Software Developer bridging manufacturing and modern software.
+            <p style={{ fontSize: '0.85rem', color: '#94A3B8', maxWidth: '280px', lineHeight: '1.6' }}>
+              {footer.tagline}
             </p>
           </div>
 
           {/* Social Links */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '16px',
-          }}>
-            <a
-              href="https://github.com/sunman97-ui"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '10px',
-                backgroundColor: 'rgba(255,255,255,0.08)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#94A3B8',
-                fontSize: '1.1rem',
-                transition: 'var(--transition)',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.backgroundColor = 'var(--accent)'
-                e.currentTarget.style.color = '#ffffff'
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'
-                e.currentTarget.style.color = '#94A3B8'
-              }}
-            >
-              <FiGithub />
-            </a>
-            <a
-              href="https://linkedin.com/in/john-s-30b2841b3"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '10px',
-                backgroundColor: 'rgba(255,255,255,0.08)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#94A3B8',
-                fontSize: '1.1rem',
-                transition: 'var(--transition)',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.backgroundColor = 'var(--accent)'
-                e.currentTarget.style.color = '#ffffff'
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'
-                e.currentTarget.style.color = '#94A3B8'
-              }}
-            >
-              <FiLinkedin />
-            </a>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            {footer.socials.map((social, index) => (
+              <a
+                key={index}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social-link"
+              >
+                <social.icon />
+              </a>
+            ))}
 
             {/* Back to Top */}
             <button
               onClick={scrollToTop}
+              className="btn btn-primary"
               style={{
                 width: '40px',
                 height: '40px',
                 borderRadius: '10px',
-                backgroundColor: 'var(--accent)',
-                display: 'flex',
-                alignItems: 'center',
+                padding: '0',
                 justifyContent: 'center',
-                color: '#ffffff',
                 fontSize: '1.1rem',
-                border: 'none',
-                cursor: 'pointer',
-                transition: 'var(--transition)',
               }}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor = 'var(--accent-hover)'}
-              onMouseLeave={e => e.currentTarget.style.backgroundColor = 'var(--accent)'}
               title="Back to top"
             >
-              <FiArrowUp />
+              <footerIcons.arrowUp />
             </button>
           </div>
         </div>
 
         {/* Divider */}
-        <div style={{
-          height: '1px',
-          backgroundColor: 'rgba(255,255,255,0.08)',
-        }} />
+        <div style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.08)' }} />
 
         {/* Bottom Row */}
         <div style={{
@@ -151,10 +83,10 @@ export default function Footer() {
           gap: '12px',
         }}>
           <p style={{ fontSize: '0.82rem', color: '#64748B' }}>
-            {new Date().getFullYear()} John Spencer. Built with React and Vite.
+            {footer.copyright.year} {footer.copyright.name}. {footer.copyright.tech}
           </p>
           <p style={{ fontSize: '0.82rem', color: '#64748B' }}>
-            Designed and built by John Spencer
+            {footer.copyright.by}
           </p>
         </div>
 
