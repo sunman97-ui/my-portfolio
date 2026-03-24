@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { projects, projectIcons } from '../data/projects'
 
 const fadeUp = {
@@ -13,6 +13,7 @@ const fadeUp = {
 }
 
 function ProjectCard({ project, index, isInView }) {
+  const [isExpanded, setIsExpanded] = useState(false)
   const Icon = project.status === 'private' ? projectIcons.lock : (project.status === 'coming-soon' ? projectIcons.clock : projectIcons.github)
 
   return (
@@ -24,22 +25,39 @@ function ProjectCard({ project, index, isInView }) {
       className="project-card"
     >
       <div className="project-image">
-        <Icon style={{ fontSize: '3rem', color: 'var(--accent)', opacity: 0.2 }} />
+        <Icon style={{ fontSize: '3rem', color: 'var(--project-image)', opacity: 0.7 }} />
       </div>
 
       <div className="project-content">
         <p className="project-tagline">{project.tagline}</p>
         <h3 className="project-title">{project.title}</h3>
-        <p className="project-description">{project.description}</p>
-        
-        <div style={{ marginBottom: '20px' }}>
-          <p style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-primary)', marginBottom: '8px' }}>Highlights</p>
-          <ul style={{ paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            {project.highlights.map((item, idx) => (
-              <li key={idx} style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: '1.6' }}>{item}</li>
-            ))}
-          </ul>
-        </div>
+
+        <button onClick={() => setIsExpanded(!isExpanded)} className="project-toggle-btn">
+          {isExpanded ? 'Show Less' : 'Read More'}
+        </button>
+
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              style={{ overflow: 'hidden' }}
+            >
+              <p className="project-description">{project.description}</p>
+
+              <div style={{ marginBottom: '20px' }}>
+                <p style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-primary)', marginBottom: '8px' }}>Highlights</p>
+                <ul style={{ paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  {project.highlights.map((item, idx) => (
+                    <li key={idx} style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: '1.6' }}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <div className="project-tags">
           {project.tags.map(tag => (

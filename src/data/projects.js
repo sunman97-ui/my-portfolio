@@ -35,6 +35,23 @@ export const projects = [
     status: 'public',
     github: 'https://github.com/sunman97-ui/disklens',
     featured: false,
+  },
+  {
+    id: 3,
+    title: 'AI Workbench API',
+    tagline: 'FastAPI platform for AI interactions with multiple providers',
+    description: 'This project is an "AI Workbench API" built with FastAPI, designed to facilitate interactions with multiple AI providers (e.g., OpenAI, Anthropic, Gemini, Perplexity, xAI, Groq) through a structured prompt template system. It supports user authentication, prompt execution, file processing, caching, and output generation (text, JSON, images). The core focus is on reusable prompt templates that define tasks, allowing users to input variables (e.g., text, files) and generate AI responses via a web API. The application emphasizes security (JWT-based auth), caching for performance, and extensibility across providers.',
+    highlights: [
+      'FastAPI backend with endpoints for user auth, prompt generation, history, and file handling',
+      'Modular architecture with logic handler, provider strategies, and template management',
+      'Supports multiple AI providers with strategy pattern for API-specific logic',
+      'Prompt template system with variables, examples, and validation for flexible tasks',
+      'Caching via SQLite for performance, database with PostgreSQL for history',
+      'File processing for PDFs, DOCX, images; output in text, JSON, images',
+    ],
+    tags: ['Python', 'FastAPI', 'PostgreSQL', 'JWT', 'SQLAlchemy', 'Pydantic', 'Caching'],
+    status: 'private',
+    featured: false,
   }
 ]
 
