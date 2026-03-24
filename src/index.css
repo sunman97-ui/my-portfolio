@@ -2,26 +2,27 @@
 
 /* ── CSS Variables ── */
 :root {
-  --accent: #2563EB;
-  --accent-hover: #1D4ED8;
-  --accent-light: #EFF6FF;
-  --accent-border: #BFDBFE;
-  --success: #22C55E;
-  --success-bg: #F0FDF4;
-  --success-border: #BBF7D0;
-  --error: #DC2626;
-  --error-bg: #FEF2F2;
-  --error-border: #FECACA;
-  --bg: #ffffff;
-  --bg-secondary: #F8FAFC;
-  --text-primary: #0F172A;
-  --text-secondary: #475569;
-  --border: #E2E8F0;
-  --shadow: 0 4px 24px rgba(37, 99, 235, 0.08);
-  --shadow-lg: 0 12px 48px rgba(37, 99, 235, 0.12);
-  --radius: 12px;
-  --radius-lg: 20px;
-  --transition: all 0.25s ease;
+  --accent: #2563EB; /* Primary accent color (blue) */
+  --accent-hover: #1D4ED8; /* Accent color for hover states */
+  --accent-light: #EFF6FF; /* Light background for accent elements */
+  --accent-border: #BFDBFE; /* Border color for accent elements */
+  --project-image: #0e11cdd9; /* Primary color for project images */
+  --success: #22C55E; /* Success color (green) */
+  --success-bg: #F0FDF4; /* Background for success messages */
+  --success-border: #BBF7D0; /* Border for success elements */
+  --error: #DC2626; /* Error color (red) */
+  --error-bg: #FEF2F2; /* Background for error messages */
+  --error-border: #FECACA; /* Border for error elements */
+  --bg: #ffffff; /* Main background color */
+  --bg-secondary: #F8FAFC; /* Secondary background color */
+  --text-primary: #0F172A; /* Primary text color */
+  --text-secondary: #475569; /* Secondary text color */
+  --border: #E2E8F0; /* Default border color */
+  --shadow: 0 4px 24px rgba(37, 99, 235, 0.08); /* Subtle shadow effect */
+  --shadow-lg: 0 12px 48px rgba(37, 99, 235, 0.12); /* Larger shadow effect */
+  --radius: 12px; /* Border radius for elements */
+  --radius-lg: 20px; /* Larger border radius */
+  --transition: all 0.25s ease; /* Default transition animation */
 }
 
 /* ── Reset ── */
@@ -353,12 +354,25 @@ a {
 
 .project-image {
   height: 200px;
-  background-color: var(--bg-secondary);
+  background-color: var(--accent-light);
   display: flex;
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid var(--border);
   position: relative;
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.3s ease;
+  filter: blur(10px);
+}
+
+.project-image img[data-loaded] {
+  filter: blur(0);
 }
 
 .project-content {
@@ -381,6 +395,7 @@ a {
   font-size: 1.25rem;
   margin-bottom: 12px;
   color: var(--text-primary);
+  text-align: center;
 }
 
 .project-description {
@@ -404,6 +419,29 @@ a {
   padding: 4px 10px;
   border-radius: 6px;
   border: 1px solid var(--border);
+}
+
+.project-toggle-btn {
+  background-color: var(--accent-light);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 12px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: var(--transition);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.project-toggle-btn:hover {
+  background-color: var(--accent);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
 /* Footer Styles */

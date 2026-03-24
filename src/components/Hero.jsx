@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { Link } from 'react-scroll'
+import { TypeAnimation } from 'react-type-animation'
 import AvatarSVG from '../assets/avatar.svg?react'
 import { hero } from '../data/hero'
 
@@ -13,6 +14,9 @@ const fadeUp = {
 }
 
 export default function Hero() {
+  const { scrollY } = useScroll()
+  const y = useTransform(scrollY, [0, 300], [0, -50])
+
   return (
     <section id="hero" className="hero-section" style={{
       minHeight: '100vh',
@@ -52,7 +56,15 @@ export default function Hero() {
             style={{ marginBottom: '8px' }}
           >
             {hero.greeting}{' '}
-            <span style={{ color: 'var(--accent)' }}>{hero.name}</span>
+            <span style={{ color: 'var(--accent)' }}>
+              <TypeAnimation
+                sequence={[hero.name, 2000]}
+                wrapper="span"
+                cursor={true}
+                repeat={Infinity}
+                speed={50}
+              />
+            </span>
           </motion.h1>
 
           <motion.h2
@@ -141,6 +153,7 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 0.7, ease: 'easeOut' }}
           style={{
+            y,
             flex: '0 0 auto',
             width: 'clamp(220px, 30vw, 320px)',
             height: 'clamp(220px, 30vw, 320px)',
