@@ -1,67 +1,54 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-scroll'
 import { FiMenu, FiX } from 'react-icons/fi'
-
-const navLinks = [
-  { label: 'About', to: 'about' },
-  { label: 'Skills', to: 'skills' },
-  { label: 'Projects', to: 'projects' },
-  { label: 'Contact', to: 'contact' },
-]
+import { navigation } from '../data/navigation'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
 
-  // Navbar frost effect on scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Active section tracking via IntersectionObserver
   useEffect(() => {
     const observers = []
-
-    navLinks.forEach(({ to }) => {
+    navigation.links.forEach(({ to }) => {
       const el = document.getElementById(to)
       if (!el) return
-
       const observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveSection(to)
-          }
+          if (entry.isIntersecting) setActiveSection(to)
         },
-        {
-          rootMargin: '-40% 0px -55% 0px',
-          threshold: 0,
-        }
+        { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
       )
-
       observer.observe(el)
       observers.push(observer)
     })
-
     return () => observers.forEach(obs => obs.disconnect())
   }, [])
 
+  const navStyles = {
+    backgroundColor: scrolled ? 'rgba(255,255,255,0.95)' : 'transparent',
+    backdropFilter: scrolled ? 'blur(10px)' : 'none',
+    borderBottom: scrolled ? '1px solid var(--border)' : 'none',
+  }
+
   return (
-    <nav style={{
+    <nav className="navbar" style={{
       position: 'fixed',
       top: 0,
       left: 0,
       right: 0,
       zIndex: 1000,
-      backgroundColor: scrolled ? 'rgba(255,255,255,0.95)' : 'transparent',
-      backdropFilter: scrolled ? 'blur(10px)' : 'none',
-      borderBottom: scrolled ? '1px solid var(--border)' : 'none',
       transition: 'var(--transition)',
       padding: '0 24px',
+      ...navStyles
     }}>
-      <div style={{
+      <div className="navbar-container" style={{
         maxWidth: '1100px',
         margin: '0 auto',
         display: 'flex',
@@ -69,28 +56,22 @@ export default function Navbar() {
         justifyContent: 'space-between',
         height: '68px',
       }}>
-
-        {/* Brand */}
-        <span style={{
+        <span className="navbar-brand" style={{
           fontSize: '1.1rem',
           fontWeight: '700',
           color: 'var(--text-primary)',
           letterSpacing: '-0.3px',
         }}>
-          John <span style={{ color: 'var(--accent)' }}>Spencer</span>
+          {navigation.brand.first} <span style={{ color: 'var(--accent)' }}>{navigation.brand.last}</span>
         </span>
 
-        {/* Desktop Links */}
-        <ul
-          className="desktop-nav"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '36px',
-            listStyle: 'none',
-          }}
-        >
-          {navLinks.map(link => {
+        <ul className="desktop-nav" style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '36px',
+          listStyle: 'none',
+        }}>
+          {navigation.links.map(link => {
             const isActive = activeSection === link.to
             return (
               <li key={link.to}>
@@ -99,6 +80,7 @@ export default function Navbar() {
                   smooth={true}
                   duration={500}
                   offset={-68}
+                  className={`nav-link ${isActive ? 'active' : ''}`}
                   style={{
                     fontSize: '0.95rem',
                     fontWeight: isActive ? '600' : '500',
@@ -108,82 +90,51 @@ export default function Navbar() {
                     position: 'relative',
                     paddingBottom: '4px',
                   }}
-                  onMouseEnter={e => {
-                    if (!isActive) e.target.style.color = 'var(--accent)'
-                  }}
-                  onMouseLeave={e => {
-                    if (!isActive) e.target.style.color = 'var(--text-secondary)'
-                  }}
                 >
                   {link.label}
-                  {/* Active underline indicator */}
-                  {isActive && (
-                    <span style={{
-                      position: 'absolute',
-                      bottom: '-2px',
-                      left: '0',
-                      right: '0',
-                      height: '2px',
-                      backgroundColor: 'var(--accent)',
-                      borderRadius: '999px',
-                    }} />
-                  )}
+                  {isActive && <span className="nav-indicator" style={{
+                    position: 'absolute',
+                    bottom: '-2px',
+                    left: '0',
+                    right: '0',
+                    height: '2px',
+                    backgroundColor: 'var(--accent)',
+                    borderRadius: '999px',
+                  }} />}
                 </Link>
               </li>
             )
           })}
           <li>
-            <Link
-              to="contact"
-              smooth={true}
-              duration={500}
-              offset={-68}
-            >
-              <button
-                className="btn btn-primary"
-                style={{ padding: '9px 22px', fontSize: '0.9rem' }}
-              >
-                Hire Me
+            <Link to="contact" smooth={true} duration={500} offset={-68}>
+              <button className="btn btn-primary" style={{ padding: '9px 22px', fontSize: '0.9rem' }}>
+                {navigation.cta}
               </button>
             </Link>
           </li>
         </ul>
 
-        {/* Mobile Hamburger */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="mobile-menu-btn"
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            color: 'var(--text-primary)',
-            display: 'none',
-            fontSize: '1.5rem',
-            padding: '4px',
-          }}
-        >
+        <button onClick={() => setMenuOpen(!menuOpen)} className="mobile-menu-btn" style={{
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          color: 'var(--text-primary)',
+          display: 'none',
+          fontSize: '1.5rem',
+          padding: '4px',
+        }}>
           {menuOpen ? <FiX /> : <FiMenu />}
         </button>
       </div>
 
-      {/* Mobile Dropdown */}
       {menuOpen && (
-        <div
-          className="mobile-nav"
-          style={{
-            backgroundColor: 'rgba(255,255,255,0.98)',
-            borderTop: '1px solid var(--border)',
-            padding: '16px 24px 24px',
-          }}
-        >
-          <ul style={{
-            listStyle: 'none',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '20px',
-          }}>
-            {navLinks.map(link => {
+        <div className="mobile-nav" style={{
+          backgroundColor: 'rgba(255,255,255,0.98)',
+          borderTop: '1px solid var(--border)',
+          padding: '16px 24px 24px',
+        }}>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {navigation.links.map(link => {
               const isActive = activeSection === link.to
               return (
                 <li key={link.to}>
@@ -198,7 +149,6 @@ export default function Navbar() {
                       fontWeight: isActive ? '600' : '500',
                       color: isActive ? 'var(--accent)' : 'var(--text-secondary)',
                       cursor: 'pointer',
-                      transition: 'var(--transition)',
                     }}
                   >
                     {link.label}
@@ -207,17 +157,9 @@ export default function Navbar() {
               )
             })}
             <li>
-              <Link
-                to="contact"
-                smooth={true}
-                duration={500}
-                onClick={() => setMenuOpen(false)}
-              >
-                <button
-                  className="btn btn-primary"
-                  style={{ width: '100%', justifyContent: 'center' }}
-                >
-                  Hire Me
+              <Link to="contact" smooth={true} duration={500} onClick={() => setMenuOpen(false)}>
+                <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+                  {navigation.cta}
                 </button>
               </Link>
             </li>
