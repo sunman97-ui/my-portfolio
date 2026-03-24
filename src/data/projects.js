@@ -18,9 +18,9 @@ export const projects = [
     status: 'private',
     featured: true,
     images: {
-      small: '/src/assets/projects/project1-small.webp',
-      medium: '/src/assets/projects/project1-medium.webp',
-      large: '/src/assets/projects/project1-large.webp',
+      small: '/assets/projects/project1-small.webp',
+      medium: '/assets/projects/project1-medium.webp',
+      large: '/assets/projects/project1-large.webp',
       alt: 'Screenshot of Machinome ML platform dashboard showing parameter predictions'
     }
   },
@@ -42,9 +42,9 @@ export const projects = [
     github: 'https://github.com/sunman97-ui/disklens',
     featured: false,
     images: {
-      small: '/src/assets/projects/project2-small.webp',
-      medium: '/src/assets/projects/project2-medium.webp',
-      large: '/src/assets/projects/project2-large.webp',
+      small: '/assets/projects/project2-small.webp',
+      medium: '/assets/projects/project2-medium.webp',
+      large: '/assets/projects/project2-large.webp',
       alt: 'Screenshot of DiskLens application showing disk usage treemap visualization'
     }
   },
@@ -65,9 +65,9 @@ export const projects = [
     status: 'private',
     featured: false,
     images: {
-      small: '/src/assets/projects/project3-small.webp',
-      medium: '/src/assets/projects/project3-medium.webp',
-      large: '/src/assets/projects/project3-large.webp',
+      small: '/assets/projects/project3-small.webp',
+      medium: '/assets/projects/project3-medium.webp',
+      large: '/assets/projects/project3-large.webp',
       alt: 'Screenshot of AI Workbench API interface showing prompt template configuration'
     }
   }
