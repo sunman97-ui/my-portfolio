@@ -35,23 +35,7 @@ export const projects = [
     status: 'public',
     github: 'https://github.com/sunman97-ui/disklens',
     featured: false,
-  },
-  {
-    id: 3,
-    title: 'Precision-Parser',
-    tagline: 'Next-generation G-Code static analysis engine',
-    description:
-      'A robust tool for static analysis and validation of NC programs. It provides deep insights into program structure, tool path semantics, and compliance with shop floor standards before a single chip is cut.',
-    highlights: [
-      'Complex regex-based parsing engine for diverse NC dialects (Fanuc, Heidenhain, Hurco)',
-      'Sub-program and macro expansion logic for accurate toolpath reconstruction',
-      'Automated standardisation of feeds, speeds, and coolant commands',
-      'Detailed JSON output for integration with downstream manufacturing execution systems',
-    ],
-    tags: ['Python', 'RegEx', 'Static Analysis', 'Manufacturing Tech'],
-    status: 'coming-soon',
-    featured: false,
-  },
+  }
 ]
 
 export const projectIcons = {

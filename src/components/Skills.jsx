@@ -45,10 +45,10 @@ export default function Skills() {
             Skills
           </p>
           <h2 className="section-title">
-            My <span>technical toolkit</span>
+          Two disciplines, <span>One mindset.</span>
           </h2>
           <p className="section-subtitle">
-            A diverse range of skills spanning the physical workshop and the digital workspace.
+            A decade of precision manufacturing meets modern software engineering. Each side makes the other sharper.
           </p>
         </motion.div>
 
@@ -70,8 +70,11 @@ export default function Skills() {
               <div className="info-icon-box">
                 <FiTool />
               </div>
-              <h3 style={{ fontSize: '1.2rem' }}>Manufacturing & CNC</h3>
+              <h3 style={{ fontSize: '1.2rem' }}>Manufacturing & CNC</h3>  
             </div>
+            <p style={{ marginBottom: '24px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+              Ten years across defence, oil and gas, and medical — programming and operating multi-axis machines where precision is non-negotiable.
+            </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
               {manufacturingSkills.map((skill, idx) => (
                 <SkillTag key={skill} label={skill} index={idx} />
@@ -91,8 +94,11 @@ export default function Skills() {
               <div className="info-icon-box">
                 <FiCode />
               </div>
-              <h3 style={{ fontSize: '1.2rem' }}>Software & Systems</h3>
+              <h3 style={{ fontSize: '1.2rem' }}>Software & Development</h3>
             </div>
+            <p style={{ marginBottom: '24px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+              Building production-grade tooling, ML systems, and web applications — with manufacturing domain knowledge baked in from the start.
+            </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
               {softwareSkills.map((skill, idx) => (
                 <SkillTag key={skill} label={skill} index={idx} />

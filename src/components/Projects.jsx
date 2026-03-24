@@ -82,10 +82,10 @@ export default function Projects() {
             Projects
           </p>
           <h2 className="section-title">
-            Featured <span>work</span>
+            Things I have <span>built</span>
           </h2>
           <p className="section-subtitle">
-            A selection of software tools and applications built to solve technical and industrial challenges.
+            A selection of projects spanning machine learning, desktop tooling, and manufacturing software. More in progress.
           </p>
         </motion.div>
 

@@ -159,7 +159,7 @@ a {
 .stat-card-label {
   font-size: 0.8rem;
   color: var(--text-secondary);
-  textAlign: center;
+  text-align: center;
   font-weight: 500;
 }
 
@@ -201,6 +201,12 @@ a {
   padding: 20px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.info-card:hover {
+  border-color: var(--accent-border);
+  box-shadow: var(--shadow);
 }
 
 .info-card-accent {
