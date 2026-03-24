@@ -360,6 +360,19 @@ a {
   justify-content: center;
   border-bottom: 1px solid var(--border);
   position: relative;
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.3s ease;
+  filter: blur(10px);
+}
+
+.project-image img[data-loaded] {
+  filter: blur(0);
 }
 
 .project-content {

@@ -22,10 +22,26 @@ function ProjectCard({ project, index, isInView }) {
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
       custom={index + 2}
+      whileHover={{ rotateY: 5, boxShadow: 'var(--shadow-lg)' }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       className="project-card"
     >
       <div className="project-image">
-        <Icon style={{ fontSize: '3rem', color: 'var(--project-image)', opacity: 0.7 }} />
+        {project.images ? (
+          <picture>
+            <source media="(max-width: 640px)" srcSet={project.images.small} />
+            <source media="(max-width: 1024px)" srcSet={project.images.medium} />
+            <img
+              src={project.images.large}
+              alt={project.images.alt}
+              loading="lazy"
+              onLoad={(e) => e.target.setAttribute('data-loaded', 'true')}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          </picture>
+        ) : (
+          <Icon style={{ fontSize: '3rem', color: 'var(--project-image)', opacity: 0.7 }} />
+        )}
       </div>
 
       <div className="project-content">

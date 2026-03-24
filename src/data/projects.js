@@ -17,6 +17,12 @@ export const projects = [
     tags: ['Python', 'FastAPI', 'XGBoost', 'PostgreSQL', 'Docker', 'MLflow', 'Scikit-learn'],
     status: 'private',
     featured: true,
+    images: {
+      small: '/src/assets/projects/project1-small.webp',
+      medium: '/src/assets/projects/project1-medium.webp',
+      large: '/src/assets/projects/project1-large.webp',
+      alt: 'Screenshot of Machinome ML platform dashboard showing parameter predictions'
+    }
   },
   {
     id: 2,
@@ -35,6 +41,12 @@ export const projects = [
     status: 'public',
     github: 'https://github.com/sunman97-ui/disklens',
     featured: false,
+    images: {
+      small: '/src/assets/projects/project2-small.webp',
+      medium: '/src/assets/projects/project2-medium.webp',
+      large: '/src/assets/projects/project2-large.webp',
+      alt: 'Screenshot of DiskLens application showing disk usage treemap visualization'
+    }
   },
   {
     id: 3,
@@ -52,6 +64,12 @@ export const projects = [
     tags: ['Python', 'FastAPI', 'PostgreSQL', 'JWT', 'SQLAlchemy', 'Pydantic', 'Caching'],
     status: 'private',
     featured: false,
+    images: {
+      small: '/src/assets/projects/project3-small.webp',
+      medium: '/src/assets/projects/project3-medium.webp',
+      large: '/src/assets/projects/project3-large.webp',
+      alt: 'Screenshot of AI Workbench API interface showing prompt template configuration'
+    }
   }
 ]
 
