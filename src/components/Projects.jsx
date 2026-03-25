@@ -22,7 +22,8 @@ function ProjectCard({ project, index, isInView }) {
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
       custom={index + 2}
-      whileHover={{ rotateY: 5, boxShadow: 'var(--shadow-lg)' }}
+      whileHover={{ rotateY: 5, scale: 1.1, y: -8, boxShadow: 'var(--shadow-lg)' }}
+      whileFocus={{ rotateY: 5, scale: 1.1, y: -8, boxShadow: 'var(--shadow-lg)' }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       className="project-card"
     >
