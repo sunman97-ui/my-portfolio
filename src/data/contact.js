@@ -3,7 +3,7 @@ import { FiMail, FiSend, FiCheck, FiAlertCircle } from 'react-icons/fi'
 export const contact = {
   badge: 'Contact',
   title: {
-    prefix: 'Let us ',
+    prefix: 'Let\'s ' , 
     span: 'work together',
   },
   subtitle: 'Whether you have a project in mind, a role to discuss, or just want to connect — feel free to reach out. I will get back to you promptly.',
