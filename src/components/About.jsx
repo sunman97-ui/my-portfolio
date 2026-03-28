@@ -61,7 +61,7 @@ export default function About() {
           animate={isInView ? 'visible' : 'hidden'}
           custom={1}
         >
-          <p className="badge" style={{ marginBottom: '8px', textTransform: 'uppercase' }}>
+          <p className="badge">
             {about.badge}
           </p>
           <h2 className="section-title">
@@ -73,10 +73,10 @@ export default function About() {
         </motion.div>
 
         {/* Main Content */}
-        <div style={{ display: 'flex', gap: '64px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+        <div className="about-layout">
 
           {/* Left — Text Blocks */}
-          <div style={{ flex: '1', minWidth: '280px' }}>
+          <div className="about-story">
             {about.story.map((item, index) => (
               <motion.div
                 key={item.id}
@@ -84,20 +84,20 @@ export default function About() {
                 initial="hidden"
                 animate={isInView ? 'visible' : 'hidden'}
                 custom={index + 2}
-                style={{ display: 'flex', gap: '16px', marginBottom: '32px', alignItems: 'flex-start' }}
+                className="about-story-item"
               >
-                <div className="info-icon-box" style={{ marginTop: '4px' }}>
+                <div className="info-icon-box about-story-icon">
                   <item.icon />
                 </div>
-                <div>
-                  <h3 style={{ marginBottom: '10px', color: 'var(--text-primary)' }}>{item.heading}</h3>
+                <div className="about-story-copy">
+                  <h3>{item.heading}</h3>
                   {item.paragraphs.map((p, pIndex) => (
-                    <p key={pIndex} style={{ lineHeight: '1.85', marginTop: pIndex > 0 ? '12px' : '0' }}>
+                    <p key={pIndex} className="about-story-paragraph">
                       {p}
                     </p>
                   ))}
                   {item.highlight && (
-                    <p style={{ lineHeight: '1.85', marginTop: '12px', fontWeight: '600', color: 'var(--text-primary)' }}>
+                    <p className="about-highlight">
                       {item.highlight}
                     </p>
                   )}
@@ -110,12 +110,13 @@ export default function About() {
               initial="hidden"
               animate={isInView ? 'visible' : 'hidden'}
               custom={about.story.length + 2}
+              className="about-story-closing"
             >
-              <p style={{ lineHeight: '1.85', color: 'var(--text-secondary)', marginBottom: '24px' }}>
+              <p className="about-story-closing-copy">
                 {about.closing}
               </p>
               <Link to="contact" smooth={true} duration={500} offset={-68}>
-                <button className="btn btn-primary" style={{ gap: '10px' }}>
+                <button className="btn btn-primary about-cta">
                   {about.cta} <FiArrowRight />
                 </button>
               </Link>
@@ -128,7 +129,7 @@ export default function About() {
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
             custom={3}
-            style={{ display: 'flex', flexDirection: 'column', gap: '16px', minWidth: '200px', width: '220px' }}
+            className="about-stats"
           >
             {about.stats.map((stat, index) => (
               <StatCard key={index} {...stat} />

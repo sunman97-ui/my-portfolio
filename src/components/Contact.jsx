@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { contact, contactIcons } from '../data/contact'
+import { contact, contactIcons as ContactIcons } from '../data/contact'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -73,7 +73,7 @@ export default function Contact() {
           animate={isInView ? 'visible' : 'hidden'}
           custom={1}
         >
-          <p className="badge" style={{ marginBottom: '8px', textTransform: 'uppercase' }}>
+          <p className="badge">
             {contact.badge}
           </p>
           <h2 className="section-title">
@@ -85,7 +85,7 @@ export default function Contact() {
         </motion.div>
 
         {/* Content Row */}
-        <div style={{ display: 'flex', gap: '64px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+        <div className="contact-layout">
 
           {/* Left — Info */}
           <motion.div
@@ -93,50 +93,39 @@ export default function Contact() {
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
             custom={2}
-            style={{ flex: '1', minWidth: '240px', maxWidth: '340px' }}
+            className="contact-side contact-info"
           >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div className="contact-info-stack">
               {contact.info.map((item, idx) => (
                 <div key={idx} className={`info-card ${item.icon ? '' : (item.type === 'cv' ? 'info-card-accent' : 'info-card-secondary')}`}>
                   {item.icon ? (
-                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
+                    <div className="info-card-row">
                       <div className="info-icon-box">
                         <item.icon />
                       </div>
                       <div>
-                        <p style={{ fontWeight: '600', color: 'var(--text-primary)', fontSize: '0.95rem', marginBottom: '4px' }}>
-                          {item.title}
-                        </p>
-                        <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-                          {item.description}
-                        </p>
+                        <p className="info-card-title">{item.title}</p>
+                        <p className="info-card-text">{item.description}</p>
                       </div>
                     </div>
                   ) : (
-                    <>
-                      <p style={{
-                        fontSize: '0.88rem',
-                        color: item.type === 'cv' ? 'var(--accent)' : 'var(--text-primary)',
-                        fontWeight: '600',
-                        marginBottom: '6px',
-                      }}>
+                    <div className="info-card-body">
+                      <p className={`info-card-title ${item.type === 'cv' ? 'info-card-title-accent' : ''}`}>
                         {item.title}
                       </p>
                       {item.description && (
-                        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.7' }}>
+                        <p className="info-card-text info-card-text-secondary">
                           {item.description}
                         </p>
                       )}
                       {item.items && (
-                        <ul style={{ paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        <ul className="info-card-list">
                           {item.items.map(listItem => (
-                            <li key={listItem} style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
-                              {listItem}
-                            </li>
+                            <li key={listItem}>{listItem}</li>
                           ))}
                         </ul>
                       )}
-                    </>
+                    </div>
                   )}
                 </div>
               ))}
@@ -149,21 +138,20 @@ export default function Contact() {
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
             custom={3}
-            style={{ flex: '2', minWidth: '280px' }}
+            className="contact-side contact-form"
           >
             {status === 'success' ? (
               <div className="status-msg status-msg-success">
                 <div className="status-msg-icon-success">
-                  <contactIcons.check />
+                  <ContactIcons.check />
                 </div>
-                <h3 style={{ color: '#15803D', fontSize: '1.1rem' }}>{contact.status.success.title}</h3>
-                <p style={{ color: '#166534', fontSize: '0.9rem', maxWidth: '300px' }}>
+                <h3 className="status-msg-title">{contact.status.success.title}</h3>
+                <p className="status-msg-copy">
                   {contact.status.success.message}
                 </p>
                 <button
-                  className="btn btn-outline"
+                  className="btn btn-outline form-reset"
                   onClick={() => setStatus('idle')}
-                  style={{ marginTop: '8px', fontSize: '0.88rem' }}
                 >
                   {contact.status.success.button}
                 </button>
@@ -171,7 +159,7 @@ export default function Contact() {
             ) : (
               <form onSubmit={handleSubmit} className="form-container">
                 {/* Name and Email Row */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+                <div className="form-grid">
                   <div className="form-group">
                     <label className="form-label" htmlFor="name">{contact.form.labels.name}</label>
                     <input
@@ -211,8 +199,7 @@ export default function Contact() {
                     placeholder={contact.form.placeholders.message}
                     value={formData.message}
                     onChange={handleChange}
-                    className="form-input"
-                    style={{ resize: 'vertical', lineHeight: '1.7' }}
+                    className="form-input form-textarea"
                   />
                 </div>
 
@@ -225,20 +212,16 @@ export default function Contact() {
                     onChange={handleChange}
                     className="form-checkbox"
                   />
-                  <div>
-                    <p style={{ fontWeight: '600', fontSize: '0.9rem', color: 'var(--text-primary)', marginBottom: '2px' }}>
-                      {contact.form.labels.cv}
-                    </p>
-                    <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
-                      {contact.form.placeholders.cvSub}
-                    </p>
+                  <div className="form-checkbox-content">
+                    <p className="form-checkbox-title">{contact.form.labels.cv}</p>
+                    <p className="form-checkbox-sub">{contact.form.placeholders.cvSub}</p>
                   </div>
                 </label>
 
                 {/* Error Message */}
                 {status === 'error' && (
                   <div className="status-msg-error">
-                    <contactIcons.alert />
+                    <ContactIcons.alert />
                     {contact.status.error}
                   </div>
                 )}
@@ -246,13 +229,12 @@ export default function Contact() {
                 {/* Submit */}
                 <button
                   type="submit"
-                  className="btn btn-primary"
+                  className="btn btn-primary form-submit"
                   disabled={status === 'sending'}
-                  style={{ justifyContent: 'center', gap: '10px', opacity: status === 'sending' ? 0.7 : 1, cursor: status === 'sending' ? 'not-allowed' : 'pointer' }}
                 >
                   {status === 'sending' ? contact.form.sending : (
                     <>
-                      {contact.form.submit} <contactIcons.send />
+                      {contact.form.submit} <ContactIcons.send />
                     </>
                   )}
                 </button>
