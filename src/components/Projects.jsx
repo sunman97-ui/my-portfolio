@@ -37,11 +37,10 @@ function ProjectCard({ project, index, isInView }) {
               alt={project.images.alt}
               loading="lazy"
               onLoad={(e) => e.target.setAttribute('data-loaded', 'true')}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </picture>
         ) : (
-          <Icon style={{ fontSize: '3rem', color: 'var(--project-image)', opacity: 0.7 }} />
+          <Icon className="project-placeholder-icon" />
         )}
       </div>
 
@@ -53,28 +52,28 @@ function ProjectCard({ project, index, isInView }) {
           {isExpanded ? 'Show Less' : 'Read More'}
         </button>
 
-        <AnimatePresence>
-          {isExpanded && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              style={{ overflow: 'hidden' }}
-            >
-              <p className="project-description">{project.description}</p>
+          <AnimatePresence>
+            {isExpanded && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="project-description-wrapper"
+              >
+                <p className="project-description">{project.description}</p>
 
-              <div style={{ marginBottom: '20px' }}>
-                <p style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-primary)', marginBottom: '8px' }}>Highlights</p>
-                <ul style={{ paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                  {project.highlights.map((item, idx) => (
-                    <li key={idx} style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: '1.6' }}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                <div className="project-highlights">
+                  <p className="project-highlights-title">Highlights</p>
+                  <ul className="project-highlights-list">
+                    {project.highlights.map((item, idx) => (
+                      <li key={idx} className="project-highlight-item">{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
         <div className="project-tags">
           {project.tags.map(tag => (
@@ -87,8 +86,7 @@ function ProjectCard({ project, index, isInView }) {
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-outline"
-            style={{ marginTop: '24px', padding: '10px', justifyContent: 'center', fontSize: '0.85rem' }}
+            className="btn btn-outline project-link"
           >
             View on GitHub <projectIcons.github />
           </a>
@@ -113,7 +111,7 @@ export default function Projects() {
           animate={isInView ? 'visible' : 'hidden'}
           custom={1}
         >
-          <p className="badge" style={{ marginBottom: '8px', textTransform: 'uppercase' }}>
+          <p className="badge">
             Projects
           </p>
           <h2 className="section-title">

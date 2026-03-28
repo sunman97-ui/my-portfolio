@@ -31,46 +31,14 @@ export default function Navbar() {
     return () => observers.forEach(obs => obs.disconnect())
   }, [])
 
-  const navStyles = {
-    backgroundColor: scrolled ? 'rgba(255,255,255,0.95)' : 'transparent',
-    backdropFilter: scrolled ? 'blur(10px)' : 'none',
-    borderBottom: scrolled ? '1px solid var(--border)' : 'none',
-  }
-
   return (
-    <nav className="navbar" style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      zIndex: 1000,
-      transition: 'var(--transition)',
-      padding: '0 24px',
-      ...navStyles
-    }}>
-      <div className="navbar-container" style={{
-        maxWidth: '1100px',
-        margin: '0 auto',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        height: '68px',
-      }}>
-        <span className="navbar-brand" style={{
-          fontSize: '1.1rem',
-          fontWeight: '700',
-          color: 'var(--text-primary)',
-          letterSpacing: '-0.3px',
-        }}>
-          {navigation.brand.first} <span style={{ color: 'var(--accent)' }}>{navigation.brand.last}</span>
+    <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}`}>
+      <div className="navbar-container">
+        <span className="navbar-brand">
+          {navigation.brand.first} <span>{navigation.brand.last}</span>
         </span>
 
-        <ul className="desktop-nav" style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '36px',
-          listStyle: 'none',
-        }}>
+        <ul className="desktop-nav">
           {navigation.links.map(link => {
             const isActive = activeSection === link.to
             return (
@@ -80,60 +48,31 @@ export default function Navbar() {
                   smooth={true}
                   duration={500}
                   offset={-68}
-                  className={`nav-link ${isActive ? 'active' : ''}`}
-                  style={{
-                    fontSize: '0.95rem',
-                    fontWeight: isActive ? '600' : '500',
-                    color: isActive ? 'var(--accent)' : 'var(--text-secondary)',
-                    cursor: 'pointer',
-                    transition: 'var(--transition)',
-                    position: 'relative',
-                    paddingBottom: '4px',
-                  }}
+                  className={`nav-link${isActive ? ' active' : ''}`}
                 >
                   {link.label}
-                  {isActive && <span className="nav-indicator" style={{
-                    position: 'absolute',
-                    bottom: '-2px',
-                    left: '0',
-                    right: '0',
-                    height: '2px',
-                    backgroundColor: 'var(--accent)',
-                    borderRadius: '999px',
-                  }} />}
+                  {isActive && <span className="nav-indicator" />}
                 </Link>
               </li>
             )
           })}
           <li>
             <Link to="contact" smooth={true} duration={500} offset={-68}>
-              <button className="btn btn-primary" style={{ padding: '9px 22px', fontSize: '0.9rem' }}>
+              <button className="btn btn-primary navbar-cta">
                 {navigation.cta}
               </button>
             </Link>
           </li>
         </ul>
 
-        <button onClick={() => setMenuOpen(!menuOpen)} className="mobile-menu-btn" style={{
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          color: 'var(--text-primary)',
-          display: 'none',
-          fontSize: '1.5rem',
-          padding: '4px',
-        }}>
+        <button onClick={() => setMenuOpen(!menuOpen)} className="mobile-menu-btn" aria-label="Toggle navigation">
           {menuOpen ? <FiX /> : <FiMenu />}
         </button>
       </div>
 
       {menuOpen && (
-        <div className="mobile-nav" style={{
-          backgroundColor: 'rgba(255,255,255,0.98)',
-          borderTop: '1px solid var(--border)',
-          padding: '16px 24px 24px',
-        }}>
-          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div className="mobile-nav">
+          <ul className="mobile-nav-list">
             {navigation.links.map(link => {
               const isActive = activeSection === link.to
               return (
@@ -144,12 +83,7 @@ export default function Navbar() {
                     duration={500}
                     offset={-68}
                     onClick={() => setMenuOpen(false)}
-                    style={{
-                      fontSize: '1rem',
-                      fontWeight: isActive ? '600' : '500',
-                      color: isActive ? 'var(--accent)' : 'var(--text-secondary)',
-                      cursor: 'pointer',
-                    }}
+                    className={`nav-link${isActive ? ' active' : ''}`}
                   >
                     {link.label}
                   </Link>
@@ -158,7 +92,7 @@ export default function Navbar() {
             })}
             <li>
               <Link to="contact" smooth={true} duration={500} onClick={() => setMenuOpen(false)}>
-                <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+                <button className="btn btn-primary mobile-nav-cta">
                   {navigation.cta}
                 </button>
               </Link>

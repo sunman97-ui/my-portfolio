@@ -43,7 +43,7 @@ export default function Skills() {
           animate={isInView ? 'visible' : 'hidden'}
           custom={1}
         >
-          <p className="badge" style={{ marginBottom: '8px', textTransform: 'uppercase' }}>
+          <p className="badge">
             Skills
           </p>
           <h2 className="section-title">
@@ -54,11 +54,7 @@ export default function Skills() {
           </p>
         </motion.div>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '40px',
-        }}>
+        <div className="skills-grid">
 
           {/* Manufacturing */}
           <motion.div
@@ -66,18 +62,18 @@ export default function Skills() {
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
             custom={2}
-            className="info-card"
+            className="skills-card info-card"
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+            <div className="skills-card-header">
               <div className="info-icon-box">
                 <FiTool />
               </div>
-              <h3 style={{ fontSize: '1.2rem' }}>Manufacturing & CNC</h3>  
+              <h3>Manufacturing & CNC</h3>
             </div>
-            <p style={{ marginBottom: '24px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+            <p className="skills-card-copy">
               Ten years across defence, oil and gas, and medical — programming and operating multi-axis machines where precision is non-negotiable.
             </p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+            <div className="skills-tag-group">
               {manufacturingSkills.map((skill, idx) => (
                 <SkillTag key={skill} label={skill} index={idx} />
               ))}
@@ -90,18 +86,18 @@ export default function Skills() {
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
             custom={3}
-            className="info-card"
+            className="skills-card info-card"
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+            <div className="skills-card-header">
               <div className="info-icon-box">
                 <FiCode />
               </div>
-              <h3 style={{ fontSize: '1.2rem' }}>Software & Development</h3>
+              <h3>Software & Development</h3>
             </div>
-            <p style={{ marginBottom: '24px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+            <p className="skills-card-copy">
               Building production-grade tooling, ML systems, and web applications — with manufacturing domain knowledge baked in from the start.
             </p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+            <div className="skills-tag-group">
               {softwareSkills.map((skill, idx) => (
                 <SkillTag key={skill} label={skill} index={idx} />
               ))}

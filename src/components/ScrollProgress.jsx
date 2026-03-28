@@ -10,17 +10,8 @@ export default function ScrollProgress() {
 
   return (
     <motion.div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        height: '3px',
-        backgroundColor: 'var(--accent)',
-        transformOrigin: '0%',
-        scaleX,
-        zIndex: 9999,
-      }}
+      className="scroll-progress"
+      style={{ scaleX }}
     />
   )
 }
