@@ -70,6 +70,29 @@ export const projects = [
       large: '/assets/projects/project3-large.webp',
       alt: 'Screenshot of AI Workbench API interface showing prompt template configuration'
     }
+  },
+  {
+    id: 4,
+    title: 'CADM Version Control',
+    tagline: 'Configuration Management (CM) system for CAD data',
+    description: 'A simulation of high-stakes configuration management practices used in enterprise PLM systems. It integrates FreeCAD with a SQLAlchemy-backed audit engine to enforce product baselines, manage change requests, and perform physical configuration audits (PCA) for engineering data.',
+    highlights: [
+      'Physical Configuration Audit (PCA) engine with SQLAlchemy ORM to validate CAD metadata',
+      'Custom FreeCAD integration via Python macros to extract mass, revision, and geometry snapshots',
+      'Change Request (CR) workflow with role-stamping (created_by/approved_by) for authorized evolution',
+      'CLI developed with Typer and Rich providing human-readable audit trails and lifecycle management',
+      'Document register system linking drawings and specifications to ensure multi-layer compliance',
+    ],
+    tags: ['Python', 'SQLAlchemy', 'FreeCAD', 'Typer', 'Rich', 'SQLite', 'Configuration Management'],
+    status: 'public',
+    github: 'https://github.com/sunman97-ui/CADM-Project',
+    featured: true,
+    images: {
+      small: '/assets/projects/project4-small.webp',
+      medium: '/assets/projects/project4-medium.webp',
+      large: '/assets/projects/project4-large.webp',
+      alt: 'CADM Version Control Interface and Audit Reports'
+    }
   }
 ]
 
