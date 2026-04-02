@@ -1,7 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useRef, useState, useMemo } from 'react'
+import { FiStar } from 'react-icons/fi'
 import { projects, projectIcons } from '../data/projects'
+import ExternalLink from './ui/ExternalLink'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -22,12 +24,16 @@ function ProjectCard({ project, index, isInView }) {
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
       custom={index + 2}
-      whileHover={{ rotateY: 5, scale: 1.1, y: -8, boxShadow: 'var(--shadow-lg)' }}
-      whileFocus={{ rotateY: 5, scale: 1.1, y: -8, boxShadow: 'var(--shadow-lg)' }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      layout
+      whileHover={{ y: -8, boxShadow: 'var(--shadow-lg)' }}
       className="project-card"
     >
       <div className="project-image">
+        {project.featured && (
+          <div className="project-badge" title="Featured Project">
+            <FiStar />
+          </div>
+        )}
         {project.images ? (
           <picture>
             <source media="(max-width: 640px)" srcSet={project.images.small} />
@@ -52,28 +58,28 @@ function ProjectCard({ project, index, isInView }) {
           {isExpanded ? 'Show Less' : 'Read More'}
         </button>
 
-          <AnimatePresence>
-            {isExpanded && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="project-description-wrapper"
-              >
-                <p className="project-description">{project.description}</p>
+        <AnimatePresence initial={false}>
+          {isExpanded && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="project-description-wrapper"
+            >
+              <p className="project-description">{project.description}</p>
 
-                <div className="project-highlights">
-                  <p className="project-highlights-title">Highlights</p>
-                  <ul className="project-highlights-list">
-                    {project.highlights.map((item, idx) => (
-                      <li key={idx} className="project-highlight-item">{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              <div className="project-highlights">
+                <p className="project-highlights-title">Highlights</p>
+                <ul className="project-highlights-list">
+                  {project.highlights.map((item, idx) => (
+                    <li key={idx} className="project-highlight-item">{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <div className="project-tags">
           {project.tags.map(tag => (
@@ -82,14 +88,14 @@ function ProjectCard({ project, index, isInView }) {
         </div>
 
         {project.github && (
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-outline project-link"
-          >
+          <ExternalLink href={project.github} className="btn btn-outline project-link">
             View on GitHub <projectIcons.github />
-          </a>
+          </ExternalLink>
+        )}
+        {project.url && (
+          <ExternalLink href={project.url} className="btn btn-primary project-link">
+            Go to Site <projectIcons.external />
+          </ExternalLink>
         )}
       </div>
     </motion.div>
@@ -99,6 +105,19 @@ function ProjectCard({ project, index, isInView }) {
 export default function Projects() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const [filter, setFilter] = useState('Featured')
+
+  const categories = useMemo(() => {
+    return ['Featured', 'All', ...new Set(projects.map(p => p.category))]
+  }, [])
+
+  const filteredProjects = useMemo(() => {
+    return projects.filter(p => {
+      if (filter === 'All') return true
+      if (filter === 'Featured') return p.featured
+      return p.category === filter
+    })
+  }, [filter])
 
   return (
     <section id="projects" className="section section-alt" ref={ref}>
@@ -112,21 +131,47 @@ export default function Projects() {
           custom={1}
         >
           <p className="badge">
-            Projects
+            Portfolio
           </p>
           <h2 className="section-title">
-            Things I have <span>built</span>
+            Creative <span>Engineering</span>
           </h2>
           <p className="section-subtitle">
-            A selection of projects spanning machine learning, desktop tooling, and manufacturing software. More in progress.
+            A selection of projects spanning machine learning, desktop tooling, and manufacturing software.
           </p>
         </motion.div>
 
-        <div className="projects-grid">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} isInView={isInView} />
+        {/* Filter Bar */}
+        <motion.div 
+          className="filter-bar"
+          variants={fadeUp}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          custom={2}
+        >
+          {categories.map(cat => (
+            <button
+              key={cat}
+              onClick={() => setFilter(cat)}
+              className={`filter-btn ${filter === cat ? 'active' : ''}`}
+            >
+              {cat}
+            </button>
           ))}
-        </div>
+        </motion.div>
+
+        <motion.div layout className="projects-grid">
+          <AnimatePresence mode='popLayout'>
+            {filteredProjects.map((project, index) => (
+              <ProjectCard 
+                key={project.id} 
+                project={project} 
+                index={index} 
+                isInView={isInView} 
+              />
+            ))}
+          </AnimatePresence>
+        </motion.div>
 
       </div>
     </section>

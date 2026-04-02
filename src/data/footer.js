@@ -10,6 +10,10 @@ export const footer = {
     { platform: 'GitHub', url: 'https://github.com/sunman97-ui', icon: FiGithub },
     { platform: 'LinkedIn', url: 'https://linkedin.com/in/john-s-30b2841b3', icon: FiLinkedin },
   ],
+  promptLibrary: {
+    label: 'Prompt Library marketplace',
+    url: 'https://prompts.johnspencer.dev',
+  },
   copyright: {
     year: new Date().getFullYear(),
     name: 'John Spencer',
