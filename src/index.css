@@ -2,27 +2,53 @@
 
 /* ── CSS Variables ── */
 :root {
-  --accent: #2563EB; /* Primary accent color (blue) */
-  --accent-hover: #1D4ED8; /* Accent color for hover states */
-  --accent-light: #EFF6FF; /* Light background for accent elements */
-  --accent-border: #BFDBFE; /* Border color for accent elements */
-  --project-image: #0e11cdd9; /* Primary color for project images */
-  --success: #22C55E; /* Success color (green) */
-  --success-bg: #F0FDF4; /* Background for success messages */
-  --success-border: #BBF7D0; /* Border for success elements */
-  --error: #DC2626; /* Error color (red) */
-  --error-bg: #FEF2F2; /* Background for error messages */
-  --error-border: #FECACA; /* Border for error elements */
-  --bg: #ffffff; /* Main background color */
-  --bg-secondary: #F8FAFC; /* Secondary background color */
-  --text-primary: #0F172A; /* Primary text color */
-  --text-secondary: #475569; /* Secondary text color */
-  --border: #E2E8F0; /* Default border color */
-  --shadow: 0 4px 24px rgba(37, 99, 235, 0.08); /* Subtle shadow effect */
-  --shadow-lg: 0 12px 48px rgba(37, 99, 235, 0.12); /* Larger shadow effect */
-  --radius: 12px; /* Border radius for elements */
-  --radius-lg: 20px; /* Larger border radius */
-  --transition: all 0.25s ease; /* Default transition animation */
+  /* Common */
+  --accent: #2563EB;
+  --accent-hover: #1D4ED8;
+  --accent-light: #EFF6FF;
+  --accent-border: #BFDBFE;
+  --success: #22C55E;
+  --success-bg: #F0FDF4;
+  --success-border: #BBF7D0;
+  --error: #DC2626;
+  --error-bg: #FEF2F2;
+  --error-border: #FECACA;
+  
+  /* Semantic Light Mode */
+  --bg: #ffffff;
+  --bg-secondary: #F8FAFC;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --border: #E2E8F0;
+  --shadow: 0 4px 24px rgba(37, 99, 235, 0.08);
+  --shadow-lg: 0 12px 48px rgba(37, 99, 235, 0.12);
+  --glass-bg: rgba(255, 255, 255, 0.95);
+  --glow-opacity: 0.15;
+
+  --radius: 12px;
+  --radius-lg: 20px;
+  --transition: all 0.25s ease;
+  --project-image: #0e11cdd9;
+}
+
+/* Semantic Dark Mode Override */
+.dark {
+  --bg: #020617; /* Deepest Navy */
+  --bg-secondary: #0F172A; /* Slate 900 */
+  --text-primary: #F8FAFC; /* Slate 50 */
+  --text-secondary: #94A3B8; /* Slate 400 */
+  --border: #1E293B; /* Slate 800 */
+  --accent-light: rgba(37, 99, 235, 0.1);
+  --accent-border: #2563EB4D;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.6);
+  --glass-bg: rgba(2, 6, 23, 0.85);
+  --glow-opacity: 0.25;
+  
+  --success-bg: rgba(34, 197, 94, 0.1);
+  --success-border: rgba(34, 197, 94, 0.2);
+  --error-bg: rgba(220, 38, 38, 0.1);
+  --error-border: rgba(220, 38, 38, 0.2);
 }
 
 /* ── Reset ── */
@@ -110,7 +136,7 @@ a {
   color: var(--text-primary);
 }
 .navbar--scrolled {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: var(--glass-bg);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
 }
@@ -160,6 +186,33 @@ a {
   background-color: var(--accent);
   border-radius: 999px;
 }
+
+/* Theme Toggle */
+.theme-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 1.1rem;
+}
+.theme-btn:hover {
+  background-color: var(--accent-light);
+  color: var(--accent);
+  border-color: var(--accent-border);
+}
+.navbar-actions-mobile {
+  display: none;
+  align-items: center;
+  gap: 12px;
+}
+
 .navbar-cta {
   padding: 9px 22px;
   font-size: 0.9rem;
@@ -169,12 +222,11 @@ a {
   border: none;
   cursor: pointer;
   color: var(--text-primary);
-  display: none;
   font-size: 1.5rem;
   padding: 4px;
 }
 .mobile-nav {
-  background-color: rgba(255, 255, 255, 0.98);
+  background-color: var(--bg);
   border-top: 1px solid var(--border);
   padding: 16px 24px 24px;
 }
@@ -198,7 +250,52 @@ a {
   align-items: center;
   background-color: var(--bg);
   padding-top: 68px;
+  position: relative;
+  overflow: hidden;
 }
+
+/* Glow Effect */
+.glow-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.glow-blob {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: var(--glow-opacity);
+  z-index: -1;
+  will-change: transform;
+}
+
+.glow-blob--1 {
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  top: -100px;
+  left: -100px;
+}
+
+.glow-blob--2 {
+  background: radial-gradient(circle, #8B5CF6 0%, transparent 70%);
+  bottom: -50px;
+  right: -50px;
+}
+
+.glow-blob--3 {
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .hero-inner {
   width: 100%;
   max-width: 1200px;
@@ -209,6 +306,8 @@ a {
   justify-content: space-between;
   gap: 60px;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
 }
 .hero-content {
   flex: 1;
@@ -1038,8 +1137,8 @@ a {
   .desktop-nav {
     display: none !important;
   }
-  .mobile-menu-btn {
-    display: block !important;
+  .navbar-actions-mobile {
+    display: flex !important;
   }
 }
 
@@ -1047,4 +1146,91 @@ a {
   .mobile-nav {
     display: none !important;
   }
+}
+
+/* ── Filter Bar ── */
+.filter-bar {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background-color: var(--bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.filter-btn.active {
+  background-color: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+
+/* ── Featured Project Card ── */
+.project-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #EAB308; /* Gold color */
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-size: 1.1rem;
+  border: 1px solid rgba(234, 179, 8, 0.2);
+}
+
+.dark .project-badge {
+  background-color: rgba(15, 23, 42, 0.9);
+  border-color: rgba(234, 179, 8, 0.3);
+}
+
+@media (min-width: 1024px) {
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+}
+
+/* ── Dark Mode Tweaks ── */
+.dark body {
+    background-color: var(--bg);
+}
+
+.dark .project-card,
+.dark .info-card,
+.dark .form-container,
+.dark .stat-card {
+    background-color: var(--bg-secondary);
+    border-color: var(--border);
+}
+
+.dark .nav-link:not(.active) {
+    color: var(--text-secondary);
+}
+
+.dark .navbar--scrolled {
+    background-color: var(--glass-bg);
+    border-bottom: 1px solid var(--border);
 }

@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-scroll'
-import { FiMenu, FiX } from 'react-icons/fi'
+import { FiMenu, FiX, FiSun, FiMoon, FiSettings } from 'react-icons/fi'
 import { navigation } from '../data/navigation'
+import { useDarkMode } from '../hooks/useDarkMode'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
+  const [theme, toggleTheme] = useDarkMode()
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
@@ -30,6 +32,17 @@ export default function Navbar() {
     })
     return () => observers.forEach(obs => obs.disconnect())
   }, [])
+
+  const getThemeIcon = () => {
+    if (theme === 'dark') return <FiMoon />
+    if (theme === 'light') return <FiSun />
+    return <FiSettings /> // For 'system'
+  }
+
+  const handleThemeToggle = () => {
+    if (theme === 'system' || theme === 'light') toggleTheme('dark')
+    else if (theme === 'dark') toggleTheme('light')
+  }
 
   return (
     <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}`}>
@@ -56,6 +69,16 @@ export default function Navbar() {
               </li>
             )
           })}
+          <li className="nav-theme-toggle">
+            <button 
+              onClick={handleThemeToggle} 
+              className="theme-btn" 
+              aria-label="Toggle theme"
+              title={`Current: ${theme}`}
+            >
+              {getThemeIcon()}
+            </button>
+          </li>
           <li>
             <Link to="contact" smooth={true} duration={500} offset={-68}>
               <button className="btn btn-primary navbar-cta">
@@ -65,9 +88,18 @@ export default function Navbar() {
           </li>
         </ul>
 
-        <button onClick={() => setMenuOpen(!menuOpen)} className="mobile-menu-btn" aria-label="Toggle navigation">
-          {menuOpen ? <FiX /> : <FiMenu />}
-        </button>
+        <div className="navbar-actions-mobile">
+          <button 
+            onClick={handleThemeToggle} 
+            className="theme-btn mobile-theme-btn" 
+            aria-label="Toggle theme"
+          >
+            {getThemeIcon()}
+          </button>
+          <button onClick={() => setMenuOpen(!menuOpen)} className="mobile-menu-btn" aria-label="Toggle navigation">
+            {menuOpen ? <FiX /> : <FiMenu />}
+          </button>
+        </div>
       </div>
 
       {menuOpen && (

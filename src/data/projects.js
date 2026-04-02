@@ -15,6 +15,7 @@ export const projects = [
       'Domain-driven design with clean separation across API, core, domain, and infrastructure layers',
     ],
     tags: ['Python', 'FastAPI', 'XGBoost', 'PostgreSQL', 'Docker', 'MLflow', 'Scikit-learn'],
+    category: 'Engineering & CAD',
     status: 'private',
     featured: true,
     images: {
@@ -38,6 +39,7 @@ export const projects = [
       'Full CI/CD pipeline via GitHub Actions with conventional commits driving automated versioning',
     ],
     tags: ['Python', 'Tkinter', 'Matplotlib', 'GitHub Actions', 'Ruff', 'Mypy'],
+    category: 'Systems & Tools',
     status: 'public',
     github: 'https://github.com/sunman97-ui/disklens',
     featured: false,
@@ -50,8 +52,8 @@ export const projects = [
   },
   {
     id: 3,
-    title: 'AI Workbench API',
-    tagline: 'FastAPI platform for AI interactions with multiple providers',
+    title: 'LLM Template Workbench API',
+    tagline: 'FastAPI Backend + React Frontend platform for AI interactions with multiple providers',
     description: 'This project is an "AI Workbench API" built with FastAPI, designed to facilitate interactions with multiple AI providers (e.g., OpenAI, Anthropic, Gemini, Perplexity, xAI, Groq) through a structured prompt template system. It supports user authentication, prompt execution, file processing, caching, and output generation (text, JSON, images). The core focus is on reusable prompt templates that define tasks, allowing users to input variables (e.g., text, files) and generate AI responses via a web API. The application emphasizes security (JWT-based auth), caching for performance, and extensibility across providers.',
     highlights: [
       'FastAPI backend with endpoints for user auth, prompt generation, history, and file handling',
@@ -61,7 +63,8 @@ export const projects = [
       'Caching via SQLite for performance, database with PostgreSQL for history',
       'File processing for PDFs, DOCX, images; output in text, JSON, images',
     ],
-    tags: ['Python', 'FastAPI', 'PostgreSQL', 'JWT', 'SQLAlchemy', 'Pydantic', 'Caching'],
+    tags: ['Python', 'FastAPI', 'PostgreSQL', 'JWT', 'SQLAlchemy', 'Pydantic', 'Caching', 'LLM', 'React'],
+    category: 'LLM Software',
     status: 'private',
     featured: false,
     images: {
@@ -84,6 +87,7 @@ export const projects = [
       'Document register system linking drawings and specifications to ensure multi-layer compliance',
     ],
     tags: ['Python', 'SQLAlchemy', 'FreeCAD', 'Typer', 'Rich', 'SQLite', 'Configuration Management'],
+    category: 'Engineering & CAD',
     status: 'public',
     github: 'https://github.com/sunman97-ui/CADM-Project',
     featured: true,

@@ -3,6 +3,7 @@ import { Link } from 'react-scroll'
 import { TypeAnimation } from 'react-type-animation'
 import AvatarCartoon from '../assets/avatar-cartoon.webp'
 import { hero } from '../data/hero'
+import GlowEffect from './GlowEffect'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -19,6 +20,7 @@ export default function Hero() {
 
   return (
     <section id="hero" className="hero-section">
+      <GlowEffect />
       <div className="hero-inner">
 
         {/* Left — Text */}
