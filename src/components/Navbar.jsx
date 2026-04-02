@@ -73,7 +73,7 @@ export default function Navbar() {
             <button 
               onClick={handleThemeToggle} 
               className="theme-btn" 
-              aria-label="Toggle theme"
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
               title={`Current: ${theme}`}
             >
               {getThemeIcon()}
@@ -92,7 +92,7 @@ export default function Navbar() {
           <button 
             onClick={handleThemeToggle} 
             className="theme-btn mobile-theme-btn" 
-            aria-label="Toggle theme"
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
           >
             {getThemeIcon()}
           </button>

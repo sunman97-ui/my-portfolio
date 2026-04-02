@@ -29,6 +29,7 @@
   --radius-lg: 20px;
   --transition: all 0.25s ease;
   --project-image: #0e11cdd9;
+  --secondary-glow: #8B5CF6;
 }
 
 /* Semantic Dark Mode Override */
@@ -284,7 +285,7 @@ a {
 }
 
 .glow-blob--2 {
-  background: radial-gradient(circle, #8B5CF6 0%, transparent 70%);
+  background: radial-gradient(circle, var(--secondary-glow) 0%, transparent 70%);
   bottom: -50px;
   right: -50px;
 }

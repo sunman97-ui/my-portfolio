@@ -25,15 +25,26 @@ export function useDarkMode() {
 
     applyTheme(theme)
 
-    const listener = (e) => {
+    const handleSystemChange = (e) => {
       if (theme === 'system') {
         if (e.matches) root.classList.add('dark')
         else root.classList.remove('dark')
       }
     }
 
-    supportDarkMode.addEventListener('change', listener)
-    return () => supportDarkMode.removeEventListener('change', listener)
+    const handleStorageChange = (e) => {
+      if (e.key === 'theme') {
+        setTheme(e.newValue || 'system')
+      }
+    }
+
+    supportDarkMode.addEventListener('change', handleSystemChange)
+    window.addEventListener('storage', handleStorageChange)
+    
+    return () => {
+      supportDarkMode.removeEventListener('change', handleSystemChange)
+      window.removeEventListener('storage', handleStorageChange)
+    }
   }, [theme])
 
   const toggleTheme = (newTheme) => {

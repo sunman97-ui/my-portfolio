@@ -107,14 +107,15 @@ export default function Projects() {
   const [filter, setFilter] = useState('Featured')
 
   const categories = useMemo(() => {
-    const cats = ['Featured', 'All', ...new Set(projects.map(p => p.category))]
-    return cats
+    return ['Featured', 'All', ...new Set(projects.map(p => p.category))]
   }, [])
 
   const filteredProjects = useMemo(() => {
-    if (filter === 'Featured') return projects.filter(p => p.featured)
-    if (filter === 'All') return projects
-    return projects.filter(p => p.category === filter)
+    return projects.filter(p => {
+      if (filter === 'All') return true
+      if (filter === 'Featured') return p.featured
+      return p.category === filter
+    })
   }, [filter])
 
   return (
@@ -129,13 +130,13 @@ export default function Projects() {
           custom={1}
         >
           <p className="badge">
-            Projects
+            Portfolio
           </p>
           <h2 className="section-title">
             Creative <span>Engineering</span>
           </h2>
           <p className="section-subtitle">
-            A selection of solo projects spanning machine learning, desktop tooling, and manufacturing software. More are in the works — stay tuned!
+            A selection of projects spanning machine learning, desktop tooling, and manufacturing software.
           </p>
         </motion.div>
 
