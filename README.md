@@ -83,6 +83,7 @@ src/
 ## 🔗 Contact & Links
 
 - **LinkedIn**: [Connect on LinkedIn](https://linkedin.com/in/john-s-30b2841b3)
+- **Prompt Library**: Highlighted through the navbar CTA and a footer mention so the external marketplace (prompts.johnspencer.dev) stays discoverable without disrupting the scroll-driven narrative.
 
 ## ⚖️ License
 

@@ -10,4 +10,8 @@ export const navigation = {
     { label: 'Contact', to: 'contact' },
   ],
   cta: 'Hire Me',
+  promptLink: {
+    label: 'Visit Prompt Library',
+    url: 'https://prompts.johnspencer.dev',
+  },
 }

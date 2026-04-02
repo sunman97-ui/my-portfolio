@@ -1,4 +1,5 @@
 import { footer, footerIcons as FooterIcons } from '../data/footer'
+import ExternalLink from './ui/ExternalLink'
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -45,6 +46,14 @@ export default function Footer() {
               <FooterIcons.arrowUp />
             </button>
           </div>
+          {footer.promptLibrary && (
+            <p className="footer-prompt-link">
+              {/* Footer callout mirrors the navbar CTA so the marketplace is always reachable. */}
+              <ExternalLink href={footer.promptLibrary.url} className="footer-text-link">
+                {footer.promptLibrary.label}
+              </ExternalLink>
+            </p>
+          )}
         </div>
 
         {/* Divider */}

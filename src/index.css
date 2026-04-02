@@ -165,6 +165,9 @@ a {
   margin: 0;
   padding: 0;
 }
+.nav-link-cta {
+  margin-left: 8px;
+}
 .nav-link {
   font-size: 0.95rem;
   font-weight: 500;
@@ -1056,6 +1059,20 @@ a {
 .footer-social-link:hover {
   background-color: var(--accent);
   color: #ffffff;
+}
+.footer-prompt-link {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  text-align: center;
+  width: 100%;
+}
+.footer-text-link {
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: var(--transition);
+}
+.footer-text-link:hover {
+  color: var(--accent);
 }
 
 /* ── Buttons ── */

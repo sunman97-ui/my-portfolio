@@ -1,4 +1,4 @@
-import { FiGithub, FiLock, FiClock } from 'react-icons/fi'
+import { FiGithub, FiLock, FiClock, FiExternalLink } from 'react-icons/fi'
 
 export const projects = [
   {
@@ -97,6 +97,32 @@ export const projects = [
       large: '/assets/projects/project4-large.webp',
       alt: 'CADM Version Control Interface and Audit Reports'
     }
+  },
+  // Prompt Library is an external marketplace hosted on Netlify, so it remains featured while the CTA points to the live site.
+  {
+    id: 5,
+    title: 'Prompt Library',
+    tagline: 'Precision-engineered marketplace for production-validated LLM prompt templates',
+    description: 'A comprehensive React/Vite storefront integrated with Netlify serverless functions and a Supabase-backed catalog/storage pipeline. It facilitates the discovery, sale, and secure delivery of LLM prompt templates through a modular architecture supporting both free and paid downloads with Stripe integration and automated email delivery via Resend.',
+    highlights: [
+      'React + Vite frontend with custom hooks for fetching and caching Supabase template data via Netlify Functions',
+      'Serverless backend architecture using Netlify Functions for checkout, webhooks, and secure file delivery',
+      'Supabase integration for a canonical template catalog, storage buckets, and row-level security (RLS)',
+      'Stripe API integration for secure payment processing and automated checkout sessions',
+      'Secure download system using single-use tokens and automated email delivery via Resend',
+      'Automated migration scripts to synchronize local metadata snapshots with the live Supabase database',
+    ],
+    tags: ['React', 'Vite', 'Netlify Functions', 'Supabase', 'Stripe', 'Resend', 'Node.js', 'LLM', 'Prompt Engineering'],
+    category: 'LLM Software',
+    status: 'private',
+    url: 'https://prompts.johnspencer.dev',
+    featured: true,
+    images: {
+      small: '/assets/projects/project5-small.webp',
+      medium: '/assets/projects/project5-medium.webp',
+      large: '/assets/projects/project5-large.webp',
+      alt: 'Screenshot of the Prompt Library marketplace showing LLM template listings'
+    }
   }
 ]
 
@@ -104,4 +130,6 @@ export const projectIcons = {
   github: FiGithub,
   lock: FiLock,
   clock: FiClock,
+  external: FiExternalLink,
 }
+

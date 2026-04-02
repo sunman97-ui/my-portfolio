@@ -3,6 +3,7 @@ import { useInView } from 'framer-motion'
 import { useRef, useState, useMemo } from 'react'
 import { FiStar } from 'react-icons/fi'
 import { projects, projectIcons } from '../data/projects'
+import ExternalLink from './ui/ExternalLink'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -87,14 +88,14 @@ function ProjectCard({ project, index, isInView }) {
         </div>
 
         {project.github && (
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-outline project-link"
-          >
+          <ExternalLink href={project.github} className="btn btn-outline project-link">
             View on GitHub <projectIcons.github />
-          </a>
+          </ExternalLink>
+        )}
+        {project.url && (
+          <ExternalLink href={project.url} className="btn btn-primary project-link">
+            Go to Site <projectIcons.external />
+          </ExternalLink>
         )}
       </div>
     </motion.div>
